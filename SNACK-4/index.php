@@ -234,28 +234,40 @@ $classi = [
             "linguaggio_preferito" => "PHP",
             "immagine" => "https://source.unsplash.com/random/200x200?person",
         ],
+        
     ],
 ];
 
 
+$votoSufficiente = 6;
 
-    foreach ($classi as $classe => $studenti) {
-        
-        echo "<h2>$classe</h2>";
 
+$studentiSufficienti = [];
+
+
+foreach ($classi as $classe => $studenti) {
     
-    foreach ($studenti as $studente) {
+    $studentiSufficienti[$classe] = array_filter($studenti, function($studente) use ($votoSufficiente) {
+        return $studente['voto_medio'] >= $votoSufficiente;
+    });
+}
 
-        echo "<div>";
-        echo "<img src='{$studente['immagine']}' alt='Immagine di {$studente['nome']} {$studente['cognome']}' />";
-        echo "<p><strong>Nome</strong> {$studente['nome']} {$studente['cognome']}</p>";
-        echo "<p><strong>anni</strong> {$studente['anni']}</p>";
-        echo "<p><strong>voto medio</strong> {$studente['voto_medio']}</p>";
-        echo "<p><strong>linguaggio preferito</strong> {$studente['linguaggio_preferito']}</p>";
-        echo "</div><hr>"; 
 
+foreach ($studentiSufficienti as $classe => $studenti) {
+    echo "<h2>$classe</h2>";
+    if (empty($studenti)) {
+        echo "<p>voto medio sufficiente.</p>";
+    } else {
+        foreach ($studenti as $studente) {
+            echo "<div>";
+            echo "<img src='{$studente['immagine']}' alt='{$studente['nome']} {$studente['cognome']}'>";
+            echo "<p><strong>{$studente['nome']} {$studente['cognome']}</strong>, Voto medio: {$studente['voto_medio']}</p>";
+            echo "</div>";
+            //echo "<p><strong>anni</strong> {$studente['anni']}</p>";
+            //echo "<p><strong>voto medio</strong> {$studente['voto_medio']}</p>";
+            //echo "<p><strong>linguaggio preferito</strong> {$studente['linguaggio_preferito']}</p>";
+            //echo "</div><hr>" 
         }
-
     }
-
-    ?>
+}
+?> 
