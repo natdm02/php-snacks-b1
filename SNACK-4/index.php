@@ -239,35 +239,97 @@ $classi = [
 ];
 
 
-$votoSufficiente = 6;
+// $votoSufficiente = 6;
 
 
-$studentiSufficienti = [];
+// $studentiSufficienti = [];
 
 
-foreach ($classi as $classe => $studenti) {
+// foreach ($classi as $classe => $studenti) {
     
-    $studentiSufficienti[$classe] = array_filter($studenti, function($studente) use ($votoSufficiente) {
-        return $studente['voto_medio'] >= $votoSufficiente;
-    });
-}
+//     $studentiSufficienti[$classe] = array_filter($studenti, function($studente) use ($votoSufficiente) {
+//         return $studente['voto_medio'] >= $votoSufficiente;
+//     });
+// }
+
+// echo "<form method='POST'>";
+// echo "<label for='voto_max'>Inserisci il voto medio massimo:</label>";
+// echo "<input type='number' name='voto_max' id='voto_max' min='0' max='10' step='0.1' required>";
+// echo "<input type='submit' value='Filtra'>";
+// echo "</form>";
 
 
-foreach ($studentiSufficienti as $classe => $studenti) {
-    echo "<h2>$classe</h2>";
-    if (empty($studenti)) {
-        echo "<p>voto medio sufficiente.</p>";
-    } else {
-        foreach ($studenti as $studente) {
-            echo "<div>";
-            echo "<img src='{$studente['immagine']}' alt='{$studente['nome']} {$studente['cognome']}'>";
-            echo "<p><strong>{$studente['nome']} {$studente['cognome']}</strong>, Voto medio: {$studente['voto_medio']}</p>";
-            echo "</div>";
-            //echo "<p><strong>anni</strong> {$studente['anni']}</p>";
-            //echo "<p><strong>voto medio</strong> {$studente['voto_medio']}</p>";
-            //echo "<p><strong>linguaggio preferito</strong> {$studente['linguaggio_preferito']}</p>";
-            //echo "</div><hr>" 
+// $voto_max = isset($_POST['voto_max']) ? floatval($_POST['voto_max']) : 10;
+
+// foreach ($studentiSufficienti as $classe => $studenti) {
+//     echo "<h2>$classe</h2>";
+//     if (empty($studenti)) {
+//         echo "<p>voto medio sufficiente.</p>";
+//     } else {
+//         foreach ($studenti as $studente) {
+
+//             if ($studente['voto_medio'] < $voto_max) {
+//                 echo "<div style='border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;'>";
+//                 echo "<img src='{$studente['immagine']}' alt='{$studente['nome']} {$studente['cognome']}' style='width: 50px; height: 50px;'>";
+//                 echo "<p><strong>{$studente['nome']} {$studente['cognome']}</strong>, Voto medio: {$studente['voto_medio']}</p>";
+//                 echo "</div>";
+//             }
+//         }
+//     }
+// }
+?> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+<header>
+    <h1>Elenco Studenti con Voti Medi Sufficienti</h1>
+</header>
+
+<main>
+    <?php
+
+    $votoSufficiente = 6;
+    $studentiSufficienti = [];
+
+    
+    foreach ($classi as $classe => $studenti) {
+        $studentiSufficienti[$classe] = array_filter($studenti, function($studente) use ($votoSufficiente) {
+            return $studente['voto_medio'] >= $votoSufficiente;
+        });
+    }
+
+    echo "<form class='filter-form' method='POST'>";
+    echo "<label for='voto_max'>Inserisci il voto medio massimo:</label>";
+    echo "<input type='number' name='voto_max' id='voto_max' min='0' max='10' step='0.1' required>";
+    echo "<input type='submit' value='Filtra'>";
+    echo "</form>";
+
+    $voto_max = isset($_POST['voto_max']) ? floatval($_POST['voto_max']) : 10;
+
+    foreach ($studentiSufficienti as $classe => $studenti) {
+        echo "<h2>$classe</h2>";
+        if (empty($studenti)) {
+            echo "<p>voto medio sufficiente.</p>";
+        } else {
+            foreach ($studenti as $studente) {
+                if ($studente['voto_medio'] < $voto_max) {
+                    echo "<div class='studente'>";
+                    echo "<img src='{$studente['immagine']}' alt='{$studente['nome']} {$studente['cognome']}'>";
+                    echo "<p><strong>{$studente['nome']} {$studente['cognome']}</strong>, Voto medio: {$studente['voto_medio']}</p>";
+                    echo "</div>";
+                }
+            }
         }
     }
-}
-?> 
+    ?>
+</body>
+</html>
