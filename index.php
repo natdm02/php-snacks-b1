@@ -51,3 +51,29 @@ foreach ($posts as $date => $postArray) {
     echo "<br>"; 
 }
 ?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snacks-b2</title>
+</head>
+
+<body>
+    <h1>accesso:</h1>
+
+    <form method="GET" action="process.php">
+    <input type="text" id="name" name="name" required>
+    <label for="name"> nome </label>
+
+    <input type="email" id="mail" name="mail" required>
+    <label for="mail"> mail </label>
+    
+    <input type="number" id="age" name="age" required>
+    <label for="age">età</label>
+    </form>
+</body>
+</html>
