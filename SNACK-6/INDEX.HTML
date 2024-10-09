@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!--css-->
+    <link rel="stylesheet" href="./asset/css/styles.css">
+    <!--vuejs-->
+    <script src="https://unpkg.com/vue@3" defer></script>
+    <!--axios-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="fw-bold text-center">
+                    Todolist API v2
+                </h1>
+            </div>
+        </div>
+        <div class="row py-3 justify-content-center">
+            <div class="col-7">
+                <ul class="list-group">
+                    <ul class="list-group">
+                        <!-- Ciclo attraverso i todoList per generare gli item -->
+                        <li class="list-group-item" 
+                            v-for="(item, index) in todoList" 
+                            :key="index" 
+                            :class="(item.done) ? 'text-decoration-line-through' : ''">
+                            {{ item.title }}
+                        </li>
+                    </ul>
+                    
+                    <div class="col-7">
+                        <div class="input-group mb-3">
+                            <!-- Label per l'input del nuovo task -->
+                            <label for="title" class="form-input-label">New task</label>
+                            <!-- Input legato con v-model per il titolo della nuova task -->
+                            <input  class="form-control" type="text" v-model="title" @keyup.enter.trim = "addTodo(title)">
+                        </div>
+                    </div>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
